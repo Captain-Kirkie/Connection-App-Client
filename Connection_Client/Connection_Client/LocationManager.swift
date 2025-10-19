@@ -11,7 +11,7 @@ import MapKit
 class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     @Published var userLocation: CLLocationCoordinate2D?
     private let locationManager = CLLocationManager()
-
+    
     override init() {
         super.init()
         locationManager.delegate = self
@@ -19,12 +19,12 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
         locationManager.requestWhenInUseAuthorization() // Or requestAlwaysAuthorization
         locationManager.startUpdatingLocation()
     }
-
+    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.last else { return }
         userLocation = location.coordinate
     }
-
+    
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         // Handle authorization status changes
         switch manager.authorizationStatus {
@@ -39,7 +39,7 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
             break
         }
     }
-
+    
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("Location Manager failed with error: \(error.localizedDescription)")
     }
